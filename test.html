@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <h1>Test Page</h1>
+        <p>Testing custom elements.</p>
+
+        <code-block title="terminal">
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y build-essential git
+        </code-block>
+
+        <x-warning>
+            <p><strong>Warning:</strong> Enabling Linux on your Chromebook will reserve a portion of your storage space. Make sure you have enough free space before proceeding.</p>
+        </x-warning>
+
+        <x-note>
+            <p><strong>Note:</strong> You can resize the Linux container later, but it's easier to allocate enough space from the start.</p>
+        </x-note>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Linux Chromebook Guide. Created by <a href="https://github.com/sharmnten">@sharmnten</a>.</p>
+    </footer>
+
+    <script>
+        class CodeBlock extends HTMLElement {
+            connectedCallback() {
+                // Prevent double initialization
+                if (this.querySelector('.copy-button')) return;
+
+                // Get the raw text content, trimming only leading/trailing newlines
+                const content = this.innerHTML.replace(/^\n+|\n+$/g, '');
+                const title = this.getAttribute('title') || '';
+                
+                this.innerHTML = `
+                    <div class="code-title">${title}</div>
+                    <button class="copy-button" aria-label="Copy code">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </button>
+                    <pre><code>${content}</code></pre>
+                `;
+                
+                this.querySelector('.copy-button').addEventListener('click', this.handleCopy.bind(this));
+            }
+            
+            handleCopy(e) {
+                const button = e.currentTarget;
+                const code = this.querySelector('code').innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    const originalHtml = button.innerHTML;
+                    button.innerHTML = `
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #4ade80;">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    `;
+                    setTimeout(() => {
+                        button.innerHTML = originalHtml;
+                    }, 2000);
+                });
+            }
+        }
+        customElements.define('code-block', CodeBlock);
+
+        class WarningMessage extends HTMLElement {
+            connectedCallback() {
+                const content = this.innerHTML;
+                this.innerHTML = `
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <div>${content}</div>
+                `;
+            }
+        }
+        customElements.define('x-warning', WarningMessage);
+
+        class NoteMessage extends HTMLElement {
+            connectedCallback() {
+                const content = this.innerHTML;
+                this.innerHTML = `
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <div>${content}</div>
+                `;
+            }
+        }
+        customElements.define('x-note', NoteMessage);
+    </script>
+</body>
+</html>

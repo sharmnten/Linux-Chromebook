@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Chromebook Guide-sharmnten.github.io</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Linux Chromebook</h1>
+    </header>
+    <main>
+        <h2>Introduction</h2>
+        <p>Great! You are interested in using your Chromebook to its full potential. This article will provide you with instructions to set up <x-term definition="An open-source operating system kernel">Linux</x-term> on your Chromebook, and also how to optimize the applications you use. 
+            I have used a Chromebook powered by Linux for several months, and have learned a lot about the <x-term definition="A stable and popular Linux distribution">Debian</x-term> <x-term definition="The software that manages computer hardware and software resources">operating system</x-term>, and have been able to use my device for more tasks than what can normally be performed on a Chromebook.
+            The root of my experiments involved gaming, and the other tasks involved development. 
+        </p>
+
+        <h2>My Experience</h2>
+        <p>Hi there! I'm <a href="https://github.com/sharmnten">@sharmnten</a> on GitHub, and am the author of this guide. I have about 5 years of coding experience with JavaScript, Python, Java, and HTML/CSS. I am a full-stack developer, and am also a game developer. Additionally, I sometimes play videogames.
+           A Chromebook was my first computer, and I own a plethora of Chromebooks of various ages, makes and models that I have required across my schooling, and a few that I bought. 
+           Around last year, I was trying to find another use for these Chromebooks, as I wanted a lightweight device that allowed me to do some development away from my main computer (Windows). 
+           I was interested in the Linux development environment as I recalled on many of the pages for software I downloaded, there was a Linux install option. Doing a little bit of research, this was the best way I determined to get Linux setup on a Chromebook.
+        </p>
+
+        <x-note>
+            <p><strong>Note:</strong> For those interested in gaming, I have included steps on how to install Steam and additional advice after the Linux setup section of the article.</p>
+        </x-note>
+
+        <h2>Linux Installation</h2>
+
+        <h3>Prerequisites</h3>
+        <p>Before we begin, ensure that your Chromebook meets the following requirements:</p>
+        <ul>
+            <li>Your Chromebook supports Linux (<x-term definition="Google's umbrella term for making Linux application support easy to use on Chrome OS">Crostini</x-term>). Most Chromebooks released in 2019 or later do.</li>
+            <li>You have a stable internet connection.</li>
+            <li>You have at least 32 GB of storage space.</li>
+            <li>Knowledge of how to access settings and system specifications.</li>
+        </ul>
+
+        <x-warning>
+            <p><strong>Warning:</strong> For the simplicity of this tutorial, I am assuming you have a solid understanding of how to use ChromeOS, and are comfortable navigating the settings and system information pages.</p>
+        </x-warning>
+
+        <h3>Enabling Linux</h3>
+        <p>To enable Linux on your Chromebook, follow these steps:</p>
+        <ol>
+            <li>Open the Settings app on your Chromebook.</li>
+            <li>Scroll down to the "Linux (Beta)" section.</li>
+            <li>Click "Turn On" to start the setup process.</li>
+            <li>Follow the on-screen instructions to complete the installation. You may be prompted to allocate disk space for Linux; choose an appropriate amount based on your needs.</li>
+            <li>Once the installation is complete, a terminal window will open, indicating that Linux is ready to use.</li>
+        </ol>
+
+        <x-warning>
+            <p><strong>Warning:</strong> Crostini is still a <x-term definition="Software that is still in testing and may contain bugs or be incomplete">beta feature</x-term>, so I take no responsibility for any issues that may arise with your system.</p>
+        </x-warning>
+        <h3>Learning Linux and Tips</h3>
+        <p>Now that you have installed Linux, you will have to learn how to use it. Linux is different than any other operating system because the user interacts with the terminal more frequently. For Crostini, no <x-term definition="A graphical interface that provides a desktop, icons, and windows for user interaction">desktop environment</x-term> is installed by default, nor is a <x-term definition="System software that controls the placement and appearance of windows within a windowing system">window manager</x-term>. That means that by default, no desktop is displayed, only the terminal. This means that to browse files, open software, or update your system, you will be required to use the terminal. While this may sound intimidating, I recommend you do not try to change this. 
+            It can be a great learning experience, and being comfortable with the terminal will allow you to unlock the full potential of your Linux Chromebook. Further, if your Chromebook has limited space(you gave the Linux <x-term definition="A lightweight, standalone executable package of software that includes everything needed to run an application">container</x-term> under 10 GB of storage), then it saves previous storage space, that you can fill with more useful packages. Let's learn some basic terminal commands!
+        </p>
+        <h4>Package Management</h4>
+        <p>Debian package management is handled by the <code>apt</code> command. The commands below install and remove packages, respectively. Packages are really important in Linux, as they allow you to expand the capabilities of your system.</p>
+        <code-block title="terminal">sudo apt install [package-name]
+        </code-block>
+        <code-block title="terminal">sudo apt remove [package-name]
+        </code-block>
+        <h4>File Navigation</h4>
+        <p>In order to navigate your files, it is helpful to know what files are available in the current directory, and also where you are located within the filesystem. Inorder to do this, we use the command <code>ls</code> this command lists all of the files and directories that are in the current directory.</p>
+        <code-block title="terminal">ls</code-block>
+        <p>This next command puts you into the directory that you specify after the cd. It has to be in contained in the directory you are currently in.     </p>
+        <code-block title="terminal">cd [directory]</code-block>
+        <p>This is the command to go back to the <x-term definition="The directory above the current directory in the file system hierarchy">parent directory</x-term>, or the folder in which this folder/file exists.</p>
+        <code-block title="terminal">cd ../</code-block>
+        <p>While using the terminal alone works, there is one package I recommend for managing your disk:</p>
+        <code-block title="terminal">sudo apt install ncdu
+        </code-block>
+        <p>This package provides a <x-term definition="A system tool for managing disk drives and file systems">disk utility</x-term>, which allows users to navigate their files easier. This is especially useful for cleaning up old files to free up storage space, as it provides a more user-friendly interface compared to the default terminal commands. Additionally, it shows <x-term definition="Folders used to organize files in a file system">directories</x-term> and files that are hidden by default on the system.</p>
+        <h4>Updating Your System</h4>
+        <p>When using Linux, updating your operating system </p> 
+        <h4>System Maintenance and Advice</h4>
+        <p>When doing large package operations, it is a good idea to clean up unnecessary files afterwards. You can do this by running the following command:</p>
+        <code-block title="terminal">sudo apt autoremove
+        </code-block>
+
+        <h3>System Optimization</h3>
+        <p>After installing Linux, it's a good idea to update your system and install essential <x-term definition="Bundles of software or libraries that can be easily installed and managed">packages</x-term>. Open the <x-term definition="A text-based interface where you type commands to interact with the computer">terminal</x-term> and run the following commands:</p>
+        <code-block title="terminal">
+sudo apt update && sudo apt upgrade -y
+        </code-block>
+        <h2>Gaming and Steam</h2>
+
+        <h3>Installing Steam</h3>
+        <p>Go to <a href="https://store.steampowered.com/">Steam's website</a> and click the green Install Steam button.</p>
+        <img src="assets/steam-install.png" alt="Steam Install Button" style="max-width: 100%; height: auto;">
+
+        <h3>Game Recommendations</h3>
+        <p>Because Linux support is not as good as Windows, game compatibility varies.</p>
+
+        <h3>Additional Gaming Tips</h3>
+        <ul>
+            <li>Itch.io works pretty nicely to get free games. Download the store application from their website, and you can find many free games with Linux support.</li>
+            <li>Minecraft, while not free, works pretty well on Linux, as long as you install the correct Java packages and are happy with a small render distance.</li>
+            <li>At the time of writing this article, controllers don't work through Crostini.</li>
+        </ul>
+
+        <h3>Performance Tweaks</h3>
+        <p>Tips for improving performance will go here.</p>
+    </main>
+        
+    <footer>
+        <p>&copy; 2025 Linux Chromebook Guide. Created by <a href="https://github.com/sharmnten">@sharmnten</a>.</p>
+    </footer>
+    <script>
+        class CodeBlock extends HTMLElement {
+            connectedCallback() {
+                // Prevent double initialization
+                if (this.querySelector('.copy-button')) return;
+
+                // Get the raw text content, trimming only leading/trailing newlines
+                const content = this.innerHTML.replace(/^\n+|\n+$/g, '');
+                const title = this.getAttribute('title') || '';
+                
+                this.innerHTML = `
+                    <div class="code-title">${title}</div>
+                    <button class="copy-button" aria-label="Copy code">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </button>
+                    <pre><code>${content}</code></pre>
+                `;
+                
+                this.querySelector('.copy-button').addEventListener('click', this.handleCopy.bind(this));
+            }
+            
+            handleCopy(e) {
+                const button = e.currentTarget;
+                const code = this.querySelector('code').innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    const originalHtml = button.innerHTML;
+                    button.innerHTML = `
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #4ade80;">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    `;
+                    setTimeout(() => {
+                        button.innerHTML = originalHtml;
+                    }, 2000);
+                });
+            }
+        }
+        customElements.define('code-block', CodeBlock);
+
+        class WarningMessage extends HTMLElement {
+            connectedCallback() {
+                const content = this.innerHTML;
+                this.innerHTML = `
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                    <div>${content}</div>
+                `;
+            }
+        }
+        customElements.define('x-warning', WarningMessage);
+
+        class NoteMessage extends HTMLElement {
+            connectedCallback() {
+                const content = this.innerHTML;
+                this.innerHTML = `
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <div>${content}</div>
+                `;
+            }
+        }
+        customElements.define('x-note', NoteMessage);
+
+        class TermDefinition extends HTMLElement {
+            connectedCallback() {
+                const definition = this.getAttribute('definition');
+                const term = this.innerHTML;
+                this.innerHTML = `
+                    ${term}
+                    <span class="term-tooltip">${definition}</span>
+                `;
+            }
+        }
+        customElements.define('x-term', TermDefinition);
+    </script>
+</body>
+</html>
